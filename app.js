@@ -1,11 +1,14 @@
 var express = require("express");
 var app = express();
+var cors = require("cors");
 
-app.set('port', (process.env.PORT || 4000));
+app.set("port", process.env.PORT || 4000);
 
 var Datastore = require("nedb");
 db = new Datastore({ filename: "highscore" });
 db.loadDatabase();
+
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send(
@@ -19,9 +22,8 @@ app.get("/getHighScore", (req, res) => {
     else {
       if (docs[0]) {
         const { name, score } = docs[0];
-        res.send({ name, score });
-      }
-      else res.send("Could not find the high score :(");
+        res.json({ name, score });
+      } else res.send("Could not find the high score :(");
     }
   });
 });
@@ -46,6 +48,6 @@ app.post("/updateHighScore", (req, res) => {
   }
 });
 
-app.listen(app.get('port'), () => {
-	console.log('Ping pong highscore server listening on port ' , app.get('port'))
+app.listen(app.get("port"), () => {
+  console.log("Ping pong highscore server listening on port ", app.get("port"));
 });
