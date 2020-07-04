@@ -1,6 +1,7 @@
 var express = require("express");
 var app = express();
-var port = 4000;
+
+app.set('port', (process.env.PORT || 4000));
 
 var Datastore = require("nedb");
 db = new Datastore({ filename: "highscore" });
@@ -45,6 +46,6 @@ app.post("/updateHighScore", (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log("Server listening on port " + port);
+app.listen(app.get('port'), () => {
+	console.log('Ping pong highscore server listening on port ' , app.get('port'))
 });
