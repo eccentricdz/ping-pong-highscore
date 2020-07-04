@@ -9,6 +9,7 @@ db = new Datastore({ filename: "highscore" });
 db.loadDatabase();
 
 app.use(cors());
+app.use(express.json())
 
 app.get("/", (req, res) => {
   res.send(
@@ -29,7 +30,8 @@ app.get("/getHighScore", (req, res) => {
 });
 
 app.post("/updateHighScore", (req, res) => {
-  const { name, score } = req.query;
+  console.log(req.body)
+  const { name, score } = req.body;
   if (name && score) {
     db.find({ type: "highscore" }, (err, docs) => {
       if (docs[0])
