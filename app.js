@@ -9,7 +9,7 @@ db.loadDatabase();
 
 app.get("/", (req, res) => {
   res.send(
-    "A simple service to store and retrieve high for my ping-pong web app"
+    "A simple service to store and retrieve high score for my ping-pong web app"
   );
 });
 
